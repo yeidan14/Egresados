@@ -39,7 +39,7 @@
           <h5 class="signup-subtitle">Registra tu usuario</h5>
           <div class="signup-form">
               
-              <form name="registro" action="Registro.do">
+              <form name="registro" action="Registro.do" method="POST">
 
             <div class="row">
               <div class="col-sm-6">
@@ -60,13 +60,13 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label>Email address</label>
-                  <input type="email" class="form-control" placeholder="Enter your email" value="yourname@yourdomain.com">
+                  <input type="email" name = "mail" class="form-control" placeholder="Enter your email" value="yourname@yourdomain.com">
                 </div>
               </div><!-- col -->
               <div class="col-sm-6">
                 <div class="form-group">
                   <label>Password</label>
-                  <input type="password" class="form-control" placeholder="Enter your password" value="mypassword">
+                  <input type="password" name="pass" class="form-control" placeholder="Enter your password" value="mypassword">
                 </div>
               </div><!-- col -->
             </div><!-- row -->
@@ -78,7 +78,7 @@
               </div>
             </div>
                <div class="divider-text mg-y-30"></div>
-            <div class="form-group d-flex mg-b-0">
+            <div class="form-group d-flex mg-b-0" >
                 <button  type="submit" class="btn btn-brand-01 btn-uppercase btn-block">REGISTRAR</button>
             </div>
 </form>

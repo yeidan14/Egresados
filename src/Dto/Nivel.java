@@ -6,7 +6,7 @@
 package Dto;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,15 +22,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 @Entity
 @Table(name = "nivel")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Nivel.findAll", query = "SELECT n FROM Nivel n")
-    , @NamedQuery(name = "Nivel.findById", query = "SELECT n FROM Nivel n WHERE n.id = :id")
-    , @NamedQuery(name = "Nivel.findByDescripcion", query = "SELECT n FROM Nivel n WHERE n.descripcion = :descripcion")})
+    @NamedQuery(name = "Nivel.findAll", query = "SELECT n FROM Nivel n"),
+    @NamedQuery(name = "Nivel.findById", query = "SELECT n FROM Nivel n WHERE n.id = :id"),
+    @NamedQuery(name = "Nivel.findByDescripcion", query = "SELECT n FROM Nivel n WHERE n.descripcion = :descripcion")})
 public class Nivel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,7 +42,7 @@ public class Nivel implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     @OneToMany(mappedBy = "nivel")
-    private List<Estudio> estudioList;
+    private Collection<Estudio> estudioCollection;
 
     public Nivel() {
     }
@@ -68,12 +68,12 @@ public class Nivel implements Serializable {
     }
 
     @XmlTransient
-    public List<Estudio> getEstudioList() {
-        return estudioList;
+    public Collection<Estudio> getEstudioCollection() {
+        return estudioCollection;
     }
 
-    public void setEstudioList(List<Estudio> estudioList) {
-        this.estudioList = estudioList;
+    public void setEstudioCollection(Collection<Estudio> estudioCollection) {
+        this.estudioCollection = estudioCollection;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class Nivel implements Serializable {
 
     @Override
     public String toString() {
-        return "Dto.Nivel[ id=" + id + " ]";
+        return "Dao.Nivel[ id=" + id + " ]";
     }
     
 }

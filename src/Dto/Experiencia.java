@@ -22,17 +22,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 @Entity
 @Table(name = "experiencia")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Experiencia.findAll", query = "SELECT e FROM Experiencia e")
-    , @NamedQuery(name = "Experiencia.findById", query = "SELECT e FROM Experiencia e WHERE e.id = :id")
-    , @NamedQuery(name = "Experiencia.findByDescripcion", query = "SELECT e FROM Experiencia e WHERE e.descripcion = :descripcion")
-    , @NamedQuery(name = "Experiencia.findByPeriodoinicio", query = "SELECT e FROM Experiencia e WHERE e.periodoinicio = :periodoinicio")
-    , @NamedQuery(name = "Experiencia.findByPeriodofin", query = "SELECT e FROM Experiencia e WHERE e.periodofin = :periodofin")})
+    @NamedQuery(name = "Experiencia.findAll", query = "SELECT e FROM Experiencia e"),
+    @NamedQuery(name = "Experiencia.findById", query = "SELECT e FROM Experiencia e WHERE e.id = :id"),
+    @NamedQuery(name = "Experiencia.findByDescripcion", query = "SELECT e FROM Experiencia e WHERE e.descripcion = :descripcion"),
+    @NamedQuery(name = "Experiencia.findByPeriodoinicio", query = "SELECT e FROM Experiencia e WHERE e.periodoinicio = :periodoinicio"),
+    @NamedQuery(name = "Experiencia.findByPeriodofin", query = "SELECT e FROM Experiencia e WHERE e.periodofin = :periodofin")})
 public class Experiencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -131,7 +131,7 @@ public class Experiencia implements Serializable {
 
     @Override
     public String toString() {
-        return "Dto.Experiencia[ id=" + id + " ]";
+        return "Dao.Experiencia[ id=" + id + " ]";
     }
     
 }

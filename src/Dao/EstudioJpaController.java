@@ -11,16 +11,14 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import Dto.Egresado;
-import Dto.Estudio;
-import Dto.Nivel;
+import Dto.*;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 public class EstudioJpaController implements Serializable {
 
@@ -50,11 +48,11 @@ public class EstudioJpaController implements Serializable {
             }
             em.persist(estudio);
             if (egresado != null) {
-                egresado.getEstudioList().add(estudio);
+                egresado.getEstudioCollection().add(estudio);
                 egresado = em.merge(egresado);
             }
             if (nivel != null) {
-                nivel.getEstudioList().add(estudio);
+                nivel.getEstudioCollection().add(estudio);
                 nivel = em.merge(nivel);
             }
             em.getTransaction().commit();
@@ -85,19 +83,19 @@ public class EstudioJpaController implements Serializable {
             }
             estudio = em.merge(estudio);
             if (egresadoOld != null && !egresadoOld.equals(egresadoNew)) {
-                egresadoOld.getEstudioList().remove(estudio);
+                egresadoOld.getEstudioCollection().remove(estudio);
                 egresadoOld = em.merge(egresadoOld);
             }
             if (egresadoNew != null && !egresadoNew.equals(egresadoOld)) {
-                egresadoNew.getEstudioList().add(estudio);
+                egresadoNew.getEstudioCollection().add(estudio);
                 egresadoNew = em.merge(egresadoNew);
             }
             if (nivelOld != null && !nivelOld.equals(nivelNew)) {
-                nivelOld.getEstudioList().remove(estudio);
+                nivelOld.getEstudioCollection().remove(estudio);
                 nivelOld = em.merge(nivelOld);
             }
             if (nivelNew != null && !nivelNew.equals(nivelOld)) {
-                nivelNew.getEstudioList().add(estudio);
+                nivelNew.getEstudioCollection().add(estudio);
                 nivelNew = em.merge(nivelNew);
             }
             em.getTransaction().commit();
@@ -131,12 +129,12 @@ public class EstudioJpaController implements Serializable {
             }
             Egresado egresado = estudio.getEgresado();
             if (egresado != null) {
-                egresado.getEstudioList().remove(estudio);
+                egresado.getEstudioCollection().remove(estudio);
                 egresado = em.merge(egresado);
             }
             Nivel nivel = estudio.getNivel();
             if (nivel != null) {
-                nivel.getEstudioList().remove(estudio);
+                nivel.getEstudioCollection().remove(estudio);
                 nivel = em.merge(nivel);
             }
             em.remove(estudio);

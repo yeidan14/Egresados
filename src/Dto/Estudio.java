@@ -53,7 +53,13 @@ public class Estudio implements Serializable {
     @ManyToOne
     private Nivel nivel;
 
-    public Estudio() {
+    public Estudio() {}
+    
+    public Estudio (String titulo, String periodofin, String lugar, Nivel nivel, Egresado e) {
+    	this.egresado = e;
+    	this.lugar = lugar;
+    	this.titulo = titulo;
+    	this.nivel = nivel;
     }
 
     public Estudio(Integer id) {

@@ -12,17 +12,17 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import Dto.Egresado;
-import Dto.Programa;
+import Dto.*;
 import java.util.ArrayList;
+import java.util.Collection;
+
 import java.util.List;
-import Dto.Usuario;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 public class ProgramaJpaController implements Serializable {
 
@@ -36,45 +36,45 @@ public class ProgramaJpaController implements Serializable {
     }
 
     public void create(Programa programa) throws PreexistingEntityException, Exception {
-        if (programa.getEgresadoList() == null) {
-            programa.setEgresadoList(new ArrayList<Egresado>());
+        if (programa.getEgresadoCollection() == null) {
+            programa.setEgresadoCollection(new ArrayList<Egresado>());
         }
-        if (programa.getUsuarioList() == null) {
-            programa.setUsuarioList(new ArrayList<Usuario>());
+        if (programa.getUsuarioCollection() == null) {
+            programa.setUsuarioCollection(new ArrayList<Usuario>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Egresado> attachedEgresadoList = new ArrayList<Egresado>();
-            for (Egresado egresadoListEgresadoToAttach : programa.getEgresadoList()) {
-                egresadoListEgresadoToAttach = em.getReference(egresadoListEgresadoToAttach.getClass(), egresadoListEgresadoToAttach.getId());
-                attachedEgresadoList.add(egresadoListEgresadoToAttach);
+            Collection<Egresado> attachedEgresadoCollection = new ArrayList<Egresado>();
+            for (Egresado egresadoCollectionEgresadoToAttach : programa.getEgresadoCollection()) {
+                egresadoCollectionEgresadoToAttach = em.getReference(egresadoCollectionEgresadoToAttach.getClass(), egresadoCollectionEgresadoToAttach.getId());
+                attachedEgresadoCollection.add(egresadoCollectionEgresadoToAttach);
             }
-            programa.setEgresadoList(attachedEgresadoList);
-            List<Usuario> attachedUsuarioList = new ArrayList<Usuario>();
-            for (Usuario usuarioListUsuarioToAttach : programa.getUsuarioList()) {
-                usuarioListUsuarioToAttach = em.getReference(usuarioListUsuarioToAttach.getClass(), usuarioListUsuarioToAttach.getUsuario());
-                attachedUsuarioList.add(usuarioListUsuarioToAttach);
+            programa.setEgresadoCollection(attachedEgresadoCollection);
+            Collection<Usuario> attachedUsuarioCollection = new ArrayList<Usuario>();
+            for (Usuario usuarioCollectionUsuarioToAttach : programa.getUsuarioCollection()) {
+                usuarioCollectionUsuarioToAttach = em.getReference(usuarioCollectionUsuarioToAttach.getClass(), usuarioCollectionUsuarioToAttach.getUsuario());
+                attachedUsuarioCollection.add(usuarioCollectionUsuarioToAttach);
             }
-            programa.setUsuarioList(attachedUsuarioList);
+            programa.setUsuarioCollection(attachedUsuarioCollection);
             em.persist(programa);
-            for (Egresado egresadoListEgresado : programa.getEgresadoList()) {
-                Programa oldProgramaOfEgresadoListEgresado = egresadoListEgresado.getPrograma();
-                egresadoListEgresado.setPrograma(programa);
-                egresadoListEgresado = em.merge(egresadoListEgresado);
-                if (oldProgramaOfEgresadoListEgresado != null) {
-                    oldProgramaOfEgresadoListEgresado.getEgresadoList().remove(egresadoListEgresado);
-                    oldProgramaOfEgresadoListEgresado = em.merge(oldProgramaOfEgresadoListEgresado);
+            for (Egresado egresadoCollectionEgresado : programa.getEgresadoCollection()) {
+                Programa oldProgramaOfEgresadoCollectionEgresado = egresadoCollectionEgresado.getPrograma();
+                egresadoCollectionEgresado.setPrograma(programa);
+                egresadoCollectionEgresado = em.merge(egresadoCollectionEgresado);
+                if (oldProgramaOfEgresadoCollectionEgresado != null) {
+                    oldProgramaOfEgresadoCollectionEgresado.getEgresadoCollection().remove(egresadoCollectionEgresado);
+                    oldProgramaOfEgresadoCollectionEgresado = em.merge(oldProgramaOfEgresadoCollectionEgresado);
                 }
             }
-            for (Usuario usuarioListUsuario : programa.getUsuarioList()) {
-                Programa oldProgramaOfUsuarioListUsuario = usuarioListUsuario.getPrograma();
-                usuarioListUsuario.setPrograma(programa);
-                usuarioListUsuario = em.merge(usuarioListUsuario);
-                if (oldProgramaOfUsuarioListUsuario != null) {
-                    oldProgramaOfUsuarioListUsuario.getUsuarioList().remove(usuarioListUsuario);
-                    oldProgramaOfUsuarioListUsuario = em.merge(oldProgramaOfUsuarioListUsuario);
+            for (Usuario usuarioCollectionUsuario : programa.getUsuarioCollection()) {
+                Programa oldProgramaOfUsuarioCollectionUsuario = usuarioCollectionUsuario.getPrograma();
+                usuarioCollectionUsuario.setPrograma(programa);
+                usuarioCollectionUsuario = em.merge(usuarioCollectionUsuario);
+                if (oldProgramaOfUsuarioCollectionUsuario != null) {
+                    oldProgramaOfUsuarioCollectionUsuario.getUsuarioCollection().remove(usuarioCollectionUsuario);
+                    oldProgramaOfUsuarioCollectionUsuario = em.merge(oldProgramaOfUsuarioCollectionUsuario);
                 }
             }
             em.getTransaction().commit();
@@ -96,56 +96,56 @@ public class ProgramaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Programa persistentPrograma = em.find(Programa.class, programa.getCodigo());
-            List<Egresado> egresadoListOld = persistentPrograma.getEgresadoList();
-            List<Egresado> egresadoListNew = programa.getEgresadoList();
-            List<Usuario> usuarioListOld = persistentPrograma.getUsuarioList();
-            List<Usuario> usuarioListNew = programa.getUsuarioList();
-            List<Egresado> attachedEgresadoListNew = new ArrayList<Egresado>();
-            for (Egresado egresadoListNewEgresadoToAttach : egresadoListNew) {
-                egresadoListNewEgresadoToAttach = em.getReference(egresadoListNewEgresadoToAttach.getClass(), egresadoListNewEgresadoToAttach.getId());
-                attachedEgresadoListNew.add(egresadoListNewEgresadoToAttach);
+            Collection<Egresado> egresadoCollectionOld = persistentPrograma.getEgresadoCollection();
+            Collection<Egresado> egresadoCollectionNew = programa.getEgresadoCollection();
+            Collection<Usuario> usuarioCollectionOld = persistentPrograma.getUsuarioCollection();
+            Collection<Usuario> usuarioCollectionNew = programa.getUsuarioCollection();
+            Collection<Egresado> attachedEgresadoCollectionNew = new ArrayList<Egresado>();
+            for (Egresado egresadoCollectionNewEgresadoToAttach : egresadoCollectionNew) {
+                egresadoCollectionNewEgresadoToAttach = em.getReference(egresadoCollectionNewEgresadoToAttach.getClass(), egresadoCollectionNewEgresadoToAttach.getId());
+                attachedEgresadoCollectionNew.add(egresadoCollectionNewEgresadoToAttach);
             }
-            egresadoListNew = attachedEgresadoListNew;
-            programa.setEgresadoList(egresadoListNew);
-            List<Usuario> attachedUsuarioListNew = new ArrayList<Usuario>();
-            for (Usuario usuarioListNewUsuarioToAttach : usuarioListNew) {
-                usuarioListNewUsuarioToAttach = em.getReference(usuarioListNewUsuarioToAttach.getClass(), usuarioListNewUsuarioToAttach.getUsuario());
-                attachedUsuarioListNew.add(usuarioListNewUsuarioToAttach);
+            egresadoCollectionNew = attachedEgresadoCollectionNew;
+            programa.setEgresadoCollection(egresadoCollectionNew);
+            Collection<Usuario> attachedUsuarioCollectionNew = new ArrayList<Usuario>();
+            for (Usuario usuarioCollectionNewUsuarioToAttach : usuarioCollectionNew) {
+                usuarioCollectionNewUsuarioToAttach = em.getReference(usuarioCollectionNewUsuarioToAttach.getClass(), usuarioCollectionNewUsuarioToAttach.getUsuario());
+                attachedUsuarioCollectionNew.add(usuarioCollectionNewUsuarioToAttach);
             }
-            usuarioListNew = attachedUsuarioListNew;
-            programa.setUsuarioList(usuarioListNew);
+            usuarioCollectionNew = attachedUsuarioCollectionNew;
+            programa.setUsuarioCollection(usuarioCollectionNew);
             programa = em.merge(programa);
-            for (Egresado egresadoListOldEgresado : egresadoListOld) {
-                if (!egresadoListNew.contains(egresadoListOldEgresado)) {
-                    egresadoListOldEgresado.setPrograma(null);
-                    egresadoListOldEgresado = em.merge(egresadoListOldEgresado);
+            for (Egresado egresadoCollectionOldEgresado : egresadoCollectionOld) {
+                if (!egresadoCollectionNew.contains(egresadoCollectionOldEgresado)) {
+                    egresadoCollectionOldEgresado.setPrograma(null);
+                    egresadoCollectionOldEgresado = em.merge(egresadoCollectionOldEgresado);
                 }
             }
-            for (Egresado egresadoListNewEgresado : egresadoListNew) {
-                if (!egresadoListOld.contains(egresadoListNewEgresado)) {
-                    Programa oldProgramaOfEgresadoListNewEgresado = egresadoListNewEgresado.getPrograma();
-                    egresadoListNewEgresado.setPrograma(programa);
-                    egresadoListNewEgresado = em.merge(egresadoListNewEgresado);
-                    if (oldProgramaOfEgresadoListNewEgresado != null && !oldProgramaOfEgresadoListNewEgresado.equals(programa)) {
-                        oldProgramaOfEgresadoListNewEgresado.getEgresadoList().remove(egresadoListNewEgresado);
-                        oldProgramaOfEgresadoListNewEgresado = em.merge(oldProgramaOfEgresadoListNewEgresado);
+            for (Egresado egresadoCollectionNewEgresado : egresadoCollectionNew) {
+                if (!egresadoCollectionOld.contains(egresadoCollectionNewEgresado)) {
+                    Programa oldProgramaOfEgresadoCollectionNewEgresado = egresadoCollectionNewEgresado.getPrograma();
+                    egresadoCollectionNewEgresado.setPrograma(programa);
+                    egresadoCollectionNewEgresado = em.merge(egresadoCollectionNewEgresado);
+                    if (oldProgramaOfEgresadoCollectionNewEgresado != null && !oldProgramaOfEgresadoCollectionNewEgresado.equals(programa)) {
+                        oldProgramaOfEgresadoCollectionNewEgresado.getEgresadoCollection().remove(egresadoCollectionNewEgresado);
+                        oldProgramaOfEgresadoCollectionNewEgresado = em.merge(oldProgramaOfEgresadoCollectionNewEgresado);
                     }
                 }
             }
-            for (Usuario usuarioListOldUsuario : usuarioListOld) {
-                if (!usuarioListNew.contains(usuarioListOldUsuario)) {
-                    usuarioListOldUsuario.setPrograma(null);
-                    usuarioListOldUsuario = em.merge(usuarioListOldUsuario);
+            for (Usuario usuarioCollectionOldUsuario : usuarioCollectionOld) {
+                if (!usuarioCollectionNew.contains(usuarioCollectionOldUsuario)) {
+                    usuarioCollectionOldUsuario.setPrograma(null);
+                    usuarioCollectionOldUsuario = em.merge(usuarioCollectionOldUsuario);
                 }
             }
-            for (Usuario usuarioListNewUsuario : usuarioListNew) {
-                if (!usuarioListOld.contains(usuarioListNewUsuario)) {
-                    Programa oldProgramaOfUsuarioListNewUsuario = usuarioListNewUsuario.getPrograma();
-                    usuarioListNewUsuario.setPrograma(programa);
-                    usuarioListNewUsuario = em.merge(usuarioListNewUsuario);
-                    if (oldProgramaOfUsuarioListNewUsuario != null && !oldProgramaOfUsuarioListNewUsuario.equals(programa)) {
-                        oldProgramaOfUsuarioListNewUsuario.getUsuarioList().remove(usuarioListNewUsuario);
-                        oldProgramaOfUsuarioListNewUsuario = em.merge(oldProgramaOfUsuarioListNewUsuario);
+            for (Usuario usuarioCollectionNewUsuario : usuarioCollectionNew) {
+                if (!usuarioCollectionOld.contains(usuarioCollectionNewUsuario)) {
+                    Programa oldProgramaOfUsuarioCollectionNewUsuario = usuarioCollectionNewUsuario.getPrograma();
+                    usuarioCollectionNewUsuario.setPrograma(programa);
+                    usuarioCollectionNewUsuario = em.merge(usuarioCollectionNewUsuario);
+                    if (oldProgramaOfUsuarioCollectionNewUsuario != null && !oldProgramaOfUsuarioCollectionNewUsuario.equals(programa)) {
+                        oldProgramaOfUsuarioCollectionNewUsuario.getUsuarioCollection().remove(usuarioCollectionNewUsuario);
+                        oldProgramaOfUsuarioCollectionNewUsuario = em.merge(oldProgramaOfUsuarioCollectionNewUsuario);
                     }
                 }
             }
@@ -178,15 +178,15 @@ public class ProgramaJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The programa with id " + id + " no longer exists.", enfe);
             }
-            List<Egresado> egresadoList = programa.getEgresadoList();
-            for (Egresado egresadoListEgresado : egresadoList) {
-                egresadoListEgresado.setPrograma(null);
-                egresadoListEgresado = em.merge(egresadoListEgresado);
+            Collection<Egresado> egresadoCollection = programa.getEgresadoCollection();
+            for (Egresado egresadoCollectionEgresado : egresadoCollection) {
+                egresadoCollectionEgresado.setPrograma(null);
+                egresadoCollectionEgresado = em.merge(egresadoCollectionEgresado);
             }
-            List<Usuario> usuarioList = programa.getUsuarioList();
-            for (Usuario usuarioListUsuario : usuarioList) {
-                usuarioListUsuario.setPrograma(null);
-                usuarioListUsuario = em.merge(usuarioListUsuario);
+            Collection<Usuario> usuarioCollection = programa.getUsuarioCollection();
+            for (Usuario usuarioCollectionUsuario : usuarioCollection) {
+                usuarioCollectionUsuario.setPrograma(null);
+                usuarioCollectionUsuario = em.merge(usuarioCollectionUsuario);
             }
             em.remove(programa);
             em.getTransaction().commit();

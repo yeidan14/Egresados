@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 @Entity
 @Table(name = "usuario")
@@ -133,7 +133,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Dto.Usuario[ usuario=" + usuario + " ]";
+        return "Dao.Usuario[ usuario=" + usuario + " ]";
     }
     
 }

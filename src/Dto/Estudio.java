@@ -21,17 +21,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 @Entity
 @Table(name = "estudio")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Estudio.findAll", query = "SELECT e FROM Estudio e")
-    , @NamedQuery(name = "Estudio.findById", query = "SELECT e FROM Estudio e WHERE e.id = :id")
-    , @NamedQuery(name = "Estudio.findByTitulo", query = "SELECT e FROM Estudio e WHERE e.titulo = :titulo")
-    , @NamedQuery(name = "Estudio.findByPeriodofin", query = "SELECT e FROM Estudio e WHERE e.periodofin = :periodofin")
-    , @NamedQuery(name = "Estudio.findByLugar", query = "SELECT e FROM Estudio e WHERE e.lugar = :lugar")})
+    @NamedQuery(name = "Estudio.findAll", query = "SELECT e FROM Estudio e"),
+    @NamedQuery(name = "Estudio.findById", query = "SELECT e FROM Estudio e WHERE e.id = :id"),
+    @NamedQuery(name = "Estudio.findByTitulo", query = "SELECT e FROM Estudio e WHERE e.titulo = :titulo"),
+    @NamedQuery(name = "Estudio.findByPeriodofin", query = "SELECT e FROM Estudio e WHERE e.periodofin = :periodofin"),
+    @NamedQuery(name = "Estudio.findByLugar", query = "SELECT e FROM Estudio e WHERE e.lugar = :lugar")})
 public class Estudio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -130,7 +130,7 @@ public class Estudio implements Serializable {
 
     @Override
     public String toString() {
-        return "Dto.Estudio[ id=" + id + " ]";
+        return "Dao.Estudio[ id=" + id + " ]";
     }
     
 }

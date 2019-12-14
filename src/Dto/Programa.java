@@ -6,7 +6,7 @@
 package Dto;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,15 +20,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 @Entity
 @Table(name = "programa")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Programa.findAll", query = "SELECT p FROM Programa p")
-    , @NamedQuery(name = "Programa.findByCodigo", query = "SELECT p FROM Programa p WHERE p.codigo = :codigo")
-    , @NamedQuery(name = "Programa.findByNombre", query = "SELECT p FROM Programa p WHERE p.nombre = :nombre")})
+    @NamedQuery(name = "Programa.findAll", query = "SELECT p FROM Programa p"),
+    @NamedQuery(name = "Programa.findByCodigo", query = "SELECT p FROM Programa p WHERE p.codigo = :codigo"),
+    @NamedQuery(name = "Programa.findByNombre", query = "SELECT p FROM Programa p WHERE p.nombre = :nombre")})
 public class Programa implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,9 +39,9 @@ public class Programa implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(mappedBy = "programa")
-    private List<Egresado> egresadoList;
+    private Collection<Egresado> egresadoCollection;
     @OneToMany(mappedBy = "programa")
-    private List<Usuario> usuarioList;
+    private Collection<Usuario> usuarioCollection;
 
     public Programa() {
     }
@@ -67,21 +67,21 @@ public class Programa implements Serializable {
     }
 
     @XmlTransient
-    public List<Egresado> getEgresadoList() {
-        return egresadoList;
+    public Collection<Egresado> getEgresadoCollection() {
+        return egresadoCollection;
     }
 
-    public void setEgresadoList(List<Egresado> egresadoList) {
-        this.egresadoList = egresadoList;
+    public void setEgresadoCollection(Collection<Egresado> egresadoCollection) {
+        this.egresadoCollection = egresadoCollection;
     }
 
     @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Programa implements Serializable {
 
     @Override
     public String toString() {
-        return "Dto.Programa[ codigo=" + codigo + " ]";
+        return "Dao.Programa[ codigo=" + codigo + " ]";
     }
     
 }

@@ -11,16 +11,16 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import Dto.Estudio;
-import Dto.Nivel;
+import Dto.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 public class NivelJpaController implements Serializable {
 
@@ -34,27 +34,27 @@ public class NivelJpaController implements Serializable {
     }
 
     public void create(Nivel nivel) {
-        if (nivel.getEstudioList() == null) {
-            nivel.setEstudioList(new ArrayList<Estudio>());
+        if (nivel.getEstudioCollection() == null) {
+            nivel.setEstudioCollection(new ArrayList<Estudio>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Estudio> attachedEstudioList = new ArrayList<Estudio>();
-            for (Estudio estudioListEstudioToAttach : nivel.getEstudioList()) {
-                estudioListEstudioToAttach = em.getReference(estudioListEstudioToAttach.getClass(), estudioListEstudioToAttach.getId());
-                attachedEstudioList.add(estudioListEstudioToAttach);
+            Collection<Estudio> attachedEstudioCollection = new ArrayList<Estudio>();
+            for (Estudio estudioCollectionEstudioToAttach : nivel.getEstudioCollection()) {
+                estudioCollectionEstudioToAttach = em.getReference(estudioCollectionEstudioToAttach.getClass(), estudioCollectionEstudioToAttach.getId());
+                attachedEstudioCollection.add(estudioCollectionEstudioToAttach);
             }
-            nivel.setEstudioList(attachedEstudioList);
+            nivel.setEstudioCollection(attachedEstudioCollection);
             em.persist(nivel);
-            for (Estudio estudioListEstudio : nivel.getEstudioList()) {
-                Nivel oldNivelOfEstudioListEstudio = estudioListEstudio.getNivel();
-                estudioListEstudio.setNivel(nivel);
-                estudioListEstudio = em.merge(estudioListEstudio);
-                if (oldNivelOfEstudioListEstudio != null) {
-                    oldNivelOfEstudioListEstudio.getEstudioList().remove(estudioListEstudio);
-                    oldNivelOfEstudioListEstudio = em.merge(oldNivelOfEstudioListEstudio);
+            for (Estudio estudioCollectionEstudio : nivel.getEstudioCollection()) {
+                Nivel oldNivelOfEstudioCollectionEstudio = estudioCollectionEstudio.getNivel();
+                estudioCollectionEstudio.setNivel(nivel);
+                estudioCollectionEstudio = em.merge(estudioCollectionEstudio);
+                if (oldNivelOfEstudioCollectionEstudio != null) {
+                    oldNivelOfEstudioCollectionEstudio.getEstudioCollection().remove(estudioCollectionEstudio);
+                    oldNivelOfEstudioCollectionEstudio = em.merge(oldNivelOfEstudioCollectionEstudio);
                 }
             }
             em.getTransaction().commit();
@@ -71,30 +71,30 @@ public class NivelJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Nivel persistentNivel = em.find(Nivel.class, nivel.getId());
-            List<Estudio> estudioListOld = persistentNivel.getEstudioList();
-            List<Estudio> estudioListNew = nivel.getEstudioList();
-            List<Estudio> attachedEstudioListNew = new ArrayList<Estudio>();
-            for (Estudio estudioListNewEstudioToAttach : estudioListNew) {
-                estudioListNewEstudioToAttach = em.getReference(estudioListNewEstudioToAttach.getClass(), estudioListNewEstudioToAttach.getId());
-                attachedEstudioListNew.add(estudioListNewEstudioToAttach);
+            Collection<Estudio> estudioCollectionOld = persistentNivel.getEstudioCollection();
+            Collection<Estudio> estudioCollectionNew = nivel.getEstudioCollection();
+            Collection<Estudio> attachedEstudioCollectionNew = new ArrayList<Estudio>();
+            for (Estudio estudioCollectionNewEstudioToAttach : estudioCollectionNew) {
+                estudioCollectionNewEstudioToAttach = em.getReference(estudioCollectionNewEstudioToAttach.getClass(), estudioCollectionNewEstudioToAttach.getId());
+                attachedEstudioCollectionNew.add(estudioCollectionNewEstudioToAttach);
             }
-            estudioListNew = attachedEstudioListNew;
-            nivel.setEstudioList(estudioListNew);
+            estudioCollectionNew = attachedEstudioCollectionNew;
+            nivel.setEstudioCollection(estudioCollectionNew);
             nivel = em.merge(nivel);
-            for (Estudio estudioListOldEstudio : estudioListOld) {
-                if (!estudioListNew.contains(estudioListOldEstudio)) {
-                    estudioListOldEstudio.setNivel(null);
-                    estudioListOldEstudio = em.merge(estudioListOldEstudio);
+            for (Estudio estudioCollectionOldEstudio : estudioCollectionOld) {
+                if (!estudioCollectionNew.contains(estudioCollectionOldEstudio)) {
+                    estudioCollectionOldEstudio.setNivel(null);
+                    estudioCollectionOldEstudio = em.merge(estudioCollectionOldEstudio);
                 }
             }
-            for (Estudio estudioListNewEstudio : estudioListNew) {
-                if (!estudioListOld.contains(estudioListNewEstudio)) {
-                    Nivel oldNivelOfEstudioListNewEstudio = estudioListNewEstudio.getNivel();
-                    estudioListNewEstudio.setNivel(nivel);
-                    estudioListNewEstudio = em.merge(estudioListNewEstudio);
-                    if (oldNivelOfEstudioListNewEstudio != null && !oldNivelOfEstudioListNewEstudio.equals(nivel)) {
-                        oldNivelOfEstudioListNewEstudio.getEstudioList().remove(estudioListNewEstudio);
-                        oldNivelOfEstudioListNewEstudio = em.merge(oldNivelOfEstudioListNewEstudio);
+            for (Estudio estudioCollectionNewEstudio : estudioCollectionNew) {
+                if (!estudioCollectionOld.contains(estudioCollectionNewEstudio)) {
+                    Nivel oldNivelOfEstudioCollectionNewEstudio = estudioCollectionNewEstudio.getNivel();
+                    estudioCollectionNewEstudio.setNivel(nivel);
+                    estudioCollectionNewEstudio = em.merge(estudioCollectionNewEstudio);
+                    if (oldNivelOfEstudioCollectionNewEstudio != null && !oldNivelOfEstudioCollectionNewEstudio.equals(nivel)) {
+                        oldNivelOfEstudioCollectionNewEstudio.getEstudioCollection().remove(estudioCollectionNewEstudio);
+                        oldNivelOfEstudioCollectionNewEstudio = em.merge(oldNivelOfEstudioCollectionNewEstudio);
                     }
                 }
             }
@@ -127,10 +127,10 @@ public class NivelJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The nivel with id " + id + " no longer exists.", enfe);
             }
-            List<Estudio> estudioList = nivel.getEstudioList();
-            for (Estudio estudioListEstudio : estudioList) {
-                estudioListEstudio.setNivel(null);
-                estudioListEstudio = em.merge(estudioListEstudio);
+            Collection<Estudio> estudioCollection = nivel.getEstudioCollection();
+            for (Estudio estudioCollectionEstudio : estudioCollection) {
+                estudioCollectionEstudio.setNivel(null);
+                estudioCollectionEstudio = em.merge(estudioCollectionEstudio);
             }
             em.remove(nivel);
             em.getTransaction().commit();

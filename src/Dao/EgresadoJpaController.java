@@ -5,24 +5,24 @@
  */
 package Dao;
 
-import Dao.exceptions.NonexistentEntityException;
-import Dto.Egresado;
+import Dao.exceptions.NonexistentEntityException; 
+
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import Dto.Programa;
-import Dto.Estudio;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import Dto.*;
 import java.util.List;
-import Dto.Experiencia;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 public class EgresadoJpaController implements Serializable {
 
@@ -36,11 +36,11 @@ public class EgresadoJpaController implements Serializable {
     }
 
     public void create(Egresado egresado) {
-        if (egresado.getEstudioList() == null) {
-            egresado.setEstudioList(new ArrayList<Estudio>());
+        if (egresado.getEstudioCollection() == null) {
+            egresado.setEstudioCollection(new ArrayList<Estudio>());
         }
-        if (egresado.getExperienciaList() == null) {
-            egresado.setExperienciaList(new ArrayList<Experiencia>());
+        if (egresado.getExperienciaCollection() == null) {
+            egresado.setExperienciaCollection(new ArrayList<Experiencia>());
         }
         EntityManager em = null;
         try {
@@ -51,39 +51,39 @@ public class EgresadoJpaController implements Serializable {
                 programa = em.getReference(programa.getClass(), programa.getCodigo());
                 egresado.setPrograma(programa);
             }
-            List<Estudio> attachedEstudioList = new ArrayList<Estudio>();
-            for (Estudio estudioListEstudioToAttach : egresado.getEstudioList()) {
-                estudioListEstudioToAttach = em.getReference(estudioListEstudioToAttach.getClass(), estudioListEstudioToAttach.getId());
-                attachedEstudioList.add(estudioListEstudioToAttach);
+            Collection<Estudio> attachedEstudioCollection = new ArrayList<Estudio>();
+            for (Estudio estudioCollectionEstudioToAttach : egresado.getEstudioCollection()) {
+                estudioCollectionEstudioToAttach = em.getReference(estudioCollectionEstudioToAttach.getClass(), estudioCollectionEstudioToAttach.getId());
+                attachedEstudioCollection.add(estudioCollectionEstudioToAttach);
             }
-            egresado.setEstudioList(attachedEstudioList);
-            List<Experiencia> attachedExperienciaList = new ArrayList<Experiencia>();
-            for (Experiencia experienciaListExperienciaToAttach : egresado.getExperienciaList()) {
-                experienciaListExperienciaToAttach = em.getReference(experienciaListExperienciaToAttach.getClass(), experienciaListExperienciaToAttach.getId());
-                attachedExperienciaList.add(experienciaListExperienciaToAttach);
+            egresado.setEstudioCollection(attachedEstudioCollection);
+            Collection<Experiencia> attachedExperienciaCollection = new ArrayList<Experiencia>();
+            for (Experiencia experienciaCollectionExperienciaToAttach : egresado.getExperienciaCollection()) {
+                experienciaCollectionExperienciaToAttach = em.getReference(experienciaCollectionExperienciaToAttach.getClass(), experienciaCollectionExperienciaToAttach.getId());
+                attachedExperienciaCollection.add(experienciaCollectionExperienciaToAttach);
             }
-            egresado.setExperienciaList(attachedExperienciaList);
+            egresado.setExperienciaCollection(attachedExperienciaCollection);
             em.persist(egresado);
             if (programa != null) {
-                programa.getEgresadoList().add(egresado);
+                programa.getEgresadoCollection().add(egresado);
                 programa = em.merge(programa);
             }
-            for (Estudio estudioListEstudio : egresado.getEstudioList()) {
-                Egresado oldEgresadoOfEstudioListEstudio = estudioListEstudio.getEgresado();
-                estudioListEstudio.setEgresado(egresado);
-                estudioListEstudio = em.merge(estudioListEstudio);
-                if (oldEgresadoOfEstudioListEstudio != null) {
-                    oldEgresadoOfEstudioListEstudio.getEstudioList().remove(estudioListEstudio);
-                    oldEgresadoOfEstudioListEstudio = em.merge(oldEgresadoOfEstudioListEstudio);
+            for (Estudio estudioCollectionEstudio : egresado.getEstudioCollection()) {
+                Egresado oldEgresadoOfEstudioCollectionEstudio = estudioCollectionEstudio.getEgresado();
+                estudioCollectionEstudio.setEgresado(egresado);
+                estudioCollectionEstudio = em.merge(estudioCollectionEstudio);
+                if (oldEgresadoOfEstudioCollectionEstudio != null) {
+                    oldEgresadoOfEstudioCollectionEstudio.getEstudioCollection().remove(estudioCollectionEstudio);
+                    oldEgresadoOfEstudioCollectionEstudio = em.merge(oldEgresadoOfEstudioCollectionEstudio);
                 }
             }
-            for (Experiencia experienciaListExperiencia : egresado.getExperienciaList()) {
-                Egresado oldEgresadoOfExperienciaListExperiencia = experienciaListExperiencia.getEgresado();
-                experienciaListExperiencia.setEgresado(egresado);
-                experienciaListExperiencia = em.merge(experienciaListExperiencia);
-                if (oldEgresadoOfExperienciaListExperiencia != null) {
-                    oldEgresadoOfExperienciaListExperiencia.getExperienciaList().remove(experienciaListExperiencia);
-                    oldEgresadoOfExperienciaListExperiencia = em.merge(oldEgresadoOfExperienciaListExperiencia);
+            for (Experiencia experienciaCollectionExperiencia : egresado.getExperienciaCollection()) {
+                Egresado oldEgresadoOfExperienciaCollectionExperiencia = experienciaCollectionExperiencia.getEgresado();
+                experienciaCollectionExperiencia.setEgresado(egresado);
+                experienciaCollectionExperiencia = em.merge(experienciaCollectionExperiencia);
+                if (oldEgresadoOfExperienciaCollectionExperiencia != null) {
+                    oldEgresadoOfExperienciaCollectionExperiencia.getExperienciaCollection().remove(experienciaCollectionExperiencia);
+                    oldEgresadoOfExperienciaCollectionExperiencia = em.merge(oldEgresadoOfExperienciaCollectionExperiencia);
                 }
             }
             em.getTransaction().commit();
@@ -102,68 +102,68 @@ public class EgresadoJpaController implements Serializable {
             Egresado persistentEgresado = em.find(Egresado.class, egresado.getId());
             Programa programaOld = persistentEgresado.getPrograma();
             Programa programaNew = egresado.getPrograma();
-            List<Estudio> estudioListOld = persistentEgresado.getEstudioList();
-            List<Estudio> estudioListNew = egresado.getEstudioList();
-            List<Experiencia> experienciaListOld = persistentEgresado.getExperienciaList();
-            List<Experiencia> experienciaListNew = egresado.getExperienciaList();
+            Collection<Estudio> estudioCollectionOld = persistentEgresado.getEstudioCollection();
+            Collection<Estudio> estudioCollectionNew = egresado.getEstudioCollection();
+            Collection<Experiencia> experienciaCollectionOld = persistentEgresado.getExperienciaCollection();
+            Collection<Experiencia> experienciaCollectionNew = egresado.getExperienciaCollection();
             if (programaNew != null) {
                 programaNew = em.getReference(programaNew.getClass(), programaNew.getCodigo());
                 egresado.setPrograma(programaNew);
             }
-            List<Estudio> attachedEstudioListNew = new ArrayList<Estudio>();
-            for (Estudio estudioListNewEstudioToAttach : estudioListNew) {
-                estudioListNewEstudioToAttach = em.getReference(estudioListNewEstudioToAttach.getClass(), estudioListNewEstudioToAttach.getId());
-                attachedEstudioListNew.add(estudioListNewEstudioToAttach);
+            Collection<Estudio> attachedEstudioCollectionNew = new ArrayList<Estudio>();
+            for (Estudio estudioCollectionNewEstudioToAttach : estudioCollectionNew) {
+                estudioCollectionNewEstudioToAttach = em.getReference(estudioCollectionNewEstudioToAttach.getClass(), estudioCollectionNewEstudioToAttach.getId());
+                attachedEstudioCollectionNew.add(estudioCollectionNewEstudioToAttach);
             }
-            estudioListNew = attachedEstudioListNew;
-            egresado.setEstudioList(estudioListNew);
-            List<Experiencia> attachedExperienciaListNew = new ArrayList<Experiencia>();
-            for (Experiencia experienciaListNewExperienciaToAttach : experienciaListNew) {
-                experienciaListNewExperienciaToAttach = em.getReference(experienciaListNewExperienciaToAttach.getClass(), experienciaListNewExperienciaToAttach.getId());
-                attachedExperienciaListNew.add(experienciaListNewExperienciaToAttach);
+            estudioCollectionNew = attachedEstudioCollectionNew;
+            egresado.setEstudioCollection(estudioCollectionNew);
+            Collection<Experiencia> attachedExperienciaCollectionNew = new ArrayList<Experiencia>();
+            for (Experiencia experienciaCollectionNewExperienciaToAttach : experienciaCollectionNew) {
+                experienciaCollectionNewExperienciaToAttach = em.getReference(experienciaCollectionNewExperienciaToAttach.getClass(), experienciaCollectionNewExperienciaToAttach.getId());
+                attachedExperienciaCollectionNew.add(experienciaCollectionNewExperienciaToAttach);
             }
-            experienciaListNew = attachedExperienciaListNew;
-            egresado.setExperienciaList(experienciaListNew);
+            experienciaCollectionNew = attachedExperienciaCollectionNew;
+            egresado.setExperienciaCollection(experienciaCollectionNew);
             egresado = em.merge(egresado);
             if (programaOld != null && !programaOld.equals(programaNew)) {
-                programaOld.getEgresadoList().remove(egresado);
+                programaOld.getEgresadoCollection().remove(egresado);
                 programaOld = em.merge(programaOld);
             }
             if (programaNew != null && !programaNew.equals(programaOld)) {
-                programaNew.getEgresadoList().add(egresado);
+                programaNew.getEgresadoCollection().add(egresado);
                 programaNew = em.merge(programaNew);
             }
-            for (Estudio estudioListOldEstudio : estudioListOld) {
-                if (!estudioListNew.contains(estudioListOldEstudio)) {
-                    estudioListOldEstudio.setEgresado(null);
-                    estudioListOldEstudio = em.merge(estudioListOldEstudio);
+            for (Estudio estudioCollectionOldEstudio : estudioCollectionOld) {
+                if (!estudioCollectionNew.contains(estudioCollectionOldEstudio)) {
+                    estudioCollectionOldEstudio.setEgresado(null);
+                    estudioCollectionOldEstudio = em.merge(estudioCollectionOldEstudio);
                 }
             }
-            for (Estudio estudioListNewEstudio : estudioListNew) {
-                if (!estudioListOld.contains(estudioListNewEstudio)) {
-                    Egresado oldEgresadoOfEstudioListNewEstudio = estudioListNewEstudio.getEgresado();
-                    estudioListNewEstudio.setEgresado(egresado);
-                    estudioListNewEstudio = em.merge(estudioListNewEstudio);
-                    if (oldEgresadoOfEstudioListNewEstudio != null && !oldEgresadoOfEstudioListNewEstudio.equals(egresado)) {
-                        oldEgresadoOfEstudioListNewEstudio.getEstudioList().remove(estudioListNewEstudio);
-                        oldEgresadoOfEstudioListNewEstudio = em.merge(oldEgresadoOfEstudioListNewEstudio);
+            for (Estudio estudioCollectionNewEstudio : estudioCollectionNew) {
+                if (!estudioCollectionOld.contains(estudioCollectionNewEstudio)) {
+                    Egresado oldEgresadoOfEstudioCollectionNewEstudio = estudioCollectionNewEstudio.getEgresado();
+                    estudioCollectionNewEstudio.setEgresado(egresado);
+                    estudioCollectionNewEstudio = em.merge(estudioCollectionNewEstudio);
+                    if (oldEgresadoOfEstudioCollectionNewEstudio != null && !oldEgresadoOfEstudioCollectionNewEstudio.equals(egresado)) {
+                        oldEgresadoOfEstudioCollectionNewEstudio.getEstudioCollection().remove(estudioCollectionNewEstudio);
+                        oldEgresadoOfEstudioCollectionNewEstudio = em.merge(oldEgresadoOfEstudioCollectionNewEstudio);
                     }
                 }
             }
-            for (Experiencia experienciaListOldExperiencia : experienciaListOld) {
-                if (!experienciaListNew.contains(experienciaListOldExperiencia)) {
-                    experienciaListOldExperiencia.setEgresado(null);
-                    experienciaListOldExperiencia = em.merge(experienciaListOldExperiencia);
+            for (Experiencia experienciaCollectionOldExperiencia : experienciaCollectionOld) {
+                if (!experienciaCollectionNew.contains(experienciaCollectionOldExperiencia)) {
+                    experienciaCollectionOldExperiencia.setEgresado(null);
+                    experienciaCollectionOldExperiencia = em.merge(experienciaCollectionOldExperiencia);
                 }
             }
-            for (Experiencia experienciaListNewExperiencia : experienciaListNew) {
-                if (!experienciaListOld.contains(experienciaListNewExperiencia)) {
-                    Egresado oldEgresadoOfExperienciaListNewExperiencia = experienciaListNewExperiencia.getEgresado();
-                    experienciaListNewExperiencia.setEgresado(egresado);
-                    experienciaListNewExperiencia = em.merge(experienciaListNewExperiencia);
-                    if (oldEgresadoOfExperienciaListNewExperiencia != null && !oldEgresadoOfExperienciaListNewExperiencia.equals(egresado)) {
-                        oldEgresadoOfExperienciaListNewExperiencia.getExperienciaList().remove(experienciaListNewExperiencia);
-                        oldEgresadoOfExperienciaListNewExperiencia = em.merge(oldEgresadoOfExperienciaListNewExperiencia);
+            for (Experiencia experienciaCollectionNewExperiencia : experienciaCollectionNew) {
+                if (!experienciaCollectionOld.contains(experienciaCollectionNewExperiencia)) {
+                    Egresado oldEgresadoOfExperienciaCollectionNewExperiencia = experienciaCollectionNewExperiencia.getEgresado();
+                    experienciaCollectionNewExperiencia.setEgresado(egresado);
+                    experienciaCollectionNewExperiencia = em.merge(experienciaCollectionNewExperiencia);
+                    if (oldEgresadoOfExperienciaCollectionNewExperiencia != null && !oldEgresadoOfExperienciaCollectionNewExperiencia.equals(egresado)) {
+                        oldEgresadoOfExperienciaCollectionNewExperiencia.getExperienciaCollection().remove(experienciaCollectionNewExperiencia);
+                        oldEgresadoOfExperienciaCollectionNewExperiencia = em.merge(oldEgresadoOfExperienciaCollectionNewExperiencia);
                     }
                 }
             }
@@ -198,18 +198,18 @@ public class EgresadoJpaController implements Serializable {
             }
             Programa programa = egresado.getPrograma();
             if (programa != null) {
-                programa.getEgresadoList().remove(egresado);
+                programa.getEgresadoCollection().remove(egresado);
                 programa = em.merge(programa);
             }
-            List<Estudio> estudioList = egresado.getEstudioList();
-            for (Estudio estudioListEstudio : estudioList) {
-                estudioListEstudio.setEgresado(null);
-                estudioListEstudio = em.merge(estudioListEstudio);
+            Collection<Estudio> estudioCollection = egresado.getEstudioCollection();
+            for (Estudio estudioCollectionEstudio : estudioCollection) {
+                estudioCollectionEstudio.setEgresado(null);
+                estudioCollectionEstudio = em.merge(estudioCollectionEstudio);
             }
-            List<Experiencia> experienciaList = egresado.getExperienciaList();
-            for (Experiencia experienciaListExperiencia : experienciaList) {
-                experienciaListExperiencia.setEgresado(null);
-                experienciaListExperiencia = em.merge(experienciaListExperiencia);
+            Collection<Experiencia> experienciaCollection = egresado.getExperienciaCollection();
+            for (Experiencia experienciaCollectionExperiencia : experienciaCollection) {
+                experienciaCollectionExperiencia.setEgresado(null);
+                experienciaCollectionExperiencia = em.merge(experienciaCollectionExperiencia);
             }
             em.remove(egresado);
             em.getTransaction().commit();

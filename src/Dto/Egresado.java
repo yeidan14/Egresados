@@ -6,7 +6,7 @@
 package Dto;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,21 +25,22 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 @Entity
 @Table(name = "egresado")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Egresado.findAll", query = "SELECT e FROM Egresado e")
-    , @NamedQuery(name = "Egresado.findById", query = "SELECT e FROM Egresado e WHERE e.id = :id")
-    , @NamedQuery(name = "Egresado.findByDocumento", query = "SELECT e FROM Egresado e WHERE e.documento = :documento")
-    , @NamedQuery(name = "Egresado.findByNombre", query = "SELECT e FROM Egresado e WHERE e.nombre = :nombre")
-    , @NamedQuery(name = "Egresado.findByTelefono", query = "SELECT e FROM Egresado e WHERE e.telefono = :telefono")
-    , @NamedQuery(name = "Egresado.findByEmail", query = "SELECT e FROM Egresado e WHERE e.email = :email")
-    , @NamedQuery(name = "Egresado.findByCodigo", query = "SELECT e FROM Egresado e WHERE e.codigo = :codigo")
-    , @NamedQuery(name = "Egresado.findByClave", query = "SELECT e FROM Egresado e WHERE e.clave = :clave")
-    , @NamedQuery(name = "Egresado.findByActivo", query = "SELECT e FROM Egresado e WHERE e.activo = :activo")})
+
+    @NamedQuery(name = "Egresado.findAll", query = "SELECT e FROM Egresado e"),
+    @NamedQuery(name = "Egresado.findById", query = "SELECT e FROM Egresado e WHERE e.id = :id"),
+    @NamedQuery(name = "Egresado.findByDocumento", query = "SELECT e FROM Egresado e WHERE e.documento = :documento"),
+    @NamedQuery(name = "Egresado.findByNombre", query = "SELECT e FROM Egresado e WHERE e.nombre = :nombre"),
+    @NamedQuery(name = "Egresado.findByTelefono", query = "SELECT e FROM Egresado e WHERE e.telefono = :telefono"),
+    @NamedQuery(name = "Egresado.findByEmail", query = "SELECT e FROM Egresado e WHERE e.email = :email"),
+    @NamedQuery(name = "Egresado.findByCodigo", query = "SELECT e FROM Egresado e WHERE e.codigo = :codigo"),
+    @NamedQuery(name = "Egresado.findByClave", query = "SELECT e FROM Egresado e WHERE e.clave = :clave"),
+    @NamedQuery(name = "Egresado.findByActivo", query = "SELECT e FROM Egresado e WHERE e.activo = :activo")})
 public class Egresado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,9 +68,9 @@ public class Egresado implements Serializable {
     @Column(name = "activo")
     private int activo;
     @OneToMany(mappedBy = "egresado")
-    private List<Estudio> estudioList;
+    private Collection<Estudio> estudioCollection;
     @OneToMany(mappedBy = "egresado")
-    private List<Experiencia> experienciaList;
+    private Collection<Experiencia> experienciaCollection;
     @JoinColumn(name = "programa", referencedColumnName = "codigo")
     @ManyToOne
     private Programa programa;
@@ -159,21 +160,21 @@ public class Egresado implements Serializable {
     }
 
     @XmlTransient
-    public List<Estudio> getEstudioList() {
-        return estudioList;
+    public Collection<Estudio> getEstudioCollection() {
+        return estudioCollection;
     }
 
-    public void setEstudioList(List<Estudio> estudioList) {
-        this.estudioList = estudioList;
+    public void setEstudioCollection(Collection<Estudio> estudioCollection) {
+        this.estudioCollection = estudioCollection;
     }
 
     @XmlTransient
-    public List<Experiencia> getExperienciaList() {
-        return experienciaList;
+    public Collection<Experiencia> getExperienciaCollection() {
+        return experienciaCollection;
     }
 
-    public void setExperienciaList(List<Experiencia> experienciaList) {
-        this.experienciaList = experienciaList;
+    public void setExperienciaCollection(Collection<Experiencia> experienciaCollection) {
+        this.experienciaCollection = experienciaCollection;
     }
 
     public Programa getPrograma() {
@@ -206,7 +207,7 @@ public class Egresado implements Serializable {
 
     @Override
     public String toString() {
-        return "Dto.Egresado[ id=" + id + " ]";
+        return "Dao.Egresado[ id=" + id + " ]";
     }
     
 }

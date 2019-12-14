@@ -12,15 +12,14 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import Dto.Programa;
-import Dto.Usuario;
+import Dto.*;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 public class UsuarioJpaController implements Serializable {
 
@@ -45,7 +44,7 @@ public class UsuarioJpaController implements Serializable {
             }
             em.persist(usuario);
             if (programa != null) {
-                programa.getUsuarioList().add(usuario);
+                programa.getUsuarioCollection().add(usuario);
                 programa = em.merge(programa);
             }
             em.getTransaction().commit();
@@ -75,11 +74,11 @@ public class UsuarioJpaController implements Serializable {
             }
             usuario = em.merge(usuario);
             if (programaOld != null && !programaOld.equals(programaNew)) {
-                programaOld.getUsuarioList().remove(usuario);
+                programaOld.getUsuarioCollection().remove(usuario);
                 programaOld = em.merge(programaOld);
             }
             if (programaNew != null && !programaNew.equals(programaOld)) {
-                programaNew.getUsuarioList().add(usuario);
+                programaNew.getUsuarioCollection().add(usuario);
                 programaNew = em.merge(programaNew);
             }
             em.getTransaction().commit();
@@ -113,7 +112,7 @@ public class UsuarioJpaController implements Serializable {
             }
             Programa programa = usuario.getPrograma();
             if (programa != null) {
-                programa.getUsuarioList().remove(usuario);
+                programa.getUsuarioCollection().remove(usuario);
                 programa = em.merge(programa);
             }
             em.remove(usuario);

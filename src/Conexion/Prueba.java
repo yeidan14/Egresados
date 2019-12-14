@@ -4,13 +4,16 @@
  * and open the template in the editor.
  */
 package Conexion;
-
 import Dao.UsuarioJpaController;
 import Dto.Usuario;
+import Dao.*;
+import Dto.*;
+
 
 public class Prueba {
     
     public static void main(String[] args) throws Exception {
+
     Conexion con =Conexion.getConexion();
     	Usuario u= new Usuario();
     	UsuarioJpaController user=new UsuarioJpaController(con.getBd());
@@ -21,9 +24,7 @@ public class Prueba {
     	u.setSuperadmin(1);
     	user.create(u);
     	System.out.println("UsuarioCreado");
-    
-    	
-        
+      
     }
     
 }

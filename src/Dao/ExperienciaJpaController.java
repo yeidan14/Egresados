@@ -11,15 +11,14 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import Dto.Egresado;
-import Dto.Experiencia;
+import Dto.*;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author ESTUDIANTE
+ * @author Alexander
  */
 public class ExperienciaJpaController implements Serializable {
 
@@ -44,7 +43,7 @@ public class ExperienciaJpaController implements Serializable {
             }
             em.persist(experiencia);
             if (egresado != null) {
-                egresado.getExperienciaList().add(experiencia);
+                egresado.getExperienciaCollection().add(experiencia);
                 egresado = em.merge(egresado);
             }
             em.getTransaction().commit();
@@ -69,11 +68,11 @@ public class ExperienciaJpaController implements Serializable {
             }
             experiencia = em.merge(experiencia);
             if (egresadoOld != null && !egresadoOld.equals(egresadoNew)) {
-                egresadoOld.getExperienciaList().remove(experiencia);
+                egresadoOld.getExperienciaCollection().remove(experiencia);
                 egresadoOld = em.merge(egresadoOld);
             }
             if (egresadoNew != null && !egresadoNew.equals(egresadoOld)) {
-                egresadoNew.getExperienciaList().add(experiencia);
+                egresadoNew.getExperienciaCollection().add(experiencia);
                 egresadoNew = em.merge(egresadoNew);
             }
             em.getTransaction().commit();
@@ -107,7 +106,7 @@ public class ExperienciaJpaController implements Serializable {
             }
             Egresado egresado = experiencia.getEgresado();
             if (egresado != null) {
-                egresado.getExperienciaList().remove(experiencia);
+                egresado.getExperienciaCollection().remove(experiencia);
                 egresado = em.merge(egresado);
             }
             em.remove(experiencia);

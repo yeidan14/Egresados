@@ -46,6 +46,10 @@ public class Nivel implements Serializable {
 
     public Nivel() {
     }
+    
+    public Nivel (int id) {
+    	this.id = id;
+    }
 
     public Nivel(Integer id) {
         this.id = id;

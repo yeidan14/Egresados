@@ -14,7 +14,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="Librerias/assets/img/favicon.png">
 
-    <title>Login</title>
+    <title>Egresado - Profile</title>
 
     <!-- vendor css -->
     <link href="Librerias/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -24,16 +24,101 @@
     <link rel="stylesheet" href="Librerias/assets/css/cassie.css">
 </head>
 <body>
+		
+		
+		
+		
+			<div class="modal fade" id="misExperencias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Registrar Experencia</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form action="estudiosEgresado" method="post">
+			    <div class="form-group">
+			      <label for="disabledTextInput">Funciones</labiel>
+			      <input type="text" id="disabledTextInput" required  name="funcion" class="form-control" placeholder="Funciones">
+			    </div>
+			    <div class="form-group">
+			      <label for="disabledTextInput">Periodo Inicio</label>
+			      <input type="date" required name="periodoinicio" class="form-control" placeholder="inicio">
+			    </div>
+			    
+			    <div class="form-group">
+			      <label for="disabledTextInput">Periodo Final</label>
+			      <input type="date" required name="periodofinal" class="form-control" placeholder="fin">
+			    </div>
+			    
+			     <div class="form-group">
+			      <label for="disabledTextInput">Descripcion</label>
+			      <textarea class="form-control" rows="5" required name="descripcion"  cols="10"></textarea>
+			      <input type="text" id="disabledTextInput" class="form-control" placeholder="Instituto">
+			    </div>
+	      	</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Guardar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+		
+	
+	
+	
+	<div class="modal fade" id="misEstudios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Registrar Estudio</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form action="estudiosEgresado" method="post">
+			    <div class="form-group">
+			      <label for="disabledTextInput">Titulo Obtenido</label>
+			      <input type="text" id="disabledTextInput" required  name="titulo" class="form-control" placeholder="Titulo">
+			    </div>
+			    <div class="form-group">
+			      <label for="disabledTextInput">Periodo Final</label>
+			      <input type="date" required name="periodo" class="form-control" placeholder="Fecha finalizacion">
+			    </div>
+			    
+			     <div class="form-group">
+			      <label for="disabledTextInput">Lugar</label>
+			      <input type="text" required id="disabledTextInput" name="lugar" class="form-control" placeholder="Instituto">
+			    </div>
+			    <div class="form-group">
+				    <label for="exampleFormControlSelect1">Nivel</label>
+				    <select required class="form-control" id="nivelSelectEstudio" name="nivel">
+				      <option value="1">Primaria</option>
+				      <option value="2">Secundaria</option>
+				      <option value="3">Pregrado</option>
+				      <option value="4">Maestria</option>
+				      <option value="5">PhD</option>
+				    </select>
+				 </div>
+	      	</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Guardar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
 
 	<div class="content">
       <div class="header">
         <div class="header-left">
-          <a href="" class="burger-menu"><i data-feather="menu"></i></a>
 
-          <div class="header-search">
-            <i data-feather="search"></i>
-            <input type="search" class="form-control" placeholder="What are you looking for?">
-          </div><!-- header-search -->
         </div><!-- header-left -->
 
         <div class="header-right">
@@ -94,16 +179,15 @@
                   </div><!-- avatar -->
                   <div class="media-body mg-l-10">
                     <h6>Louise Kate Lumaad</h6>
-                    <span>Administrator</span>
+                    <span>Egresado</span>
                   </div>
                 </div><!-- media -->
               </div>
               <div class="dropdown-menu-body">
-                <a href="" class="dropdown-item"><i data-feather="user"></i> View Profile</a>
-                <a href="" class="dropdown-item"><i data-feather="edit-2"></i> Edit Profile</a>
-                <a href="" class="dropdown-item"><i data-feather="briefcase"></i> Account Settings</a>
-                <a href="" class="dropdown-item"><i data-feather="shield"></i> Privacy Settings</a>
-                <a href="" class="dropdown-item"><i data-feather="log-out"></i> Sign Out</a>
+                <a href="" class="dropdown-item"><i data-feather="user"></i> Mi Perfil</a>
+                <a data-toggle="modal" data-target="#misEstudios" class="dropdown-item"><i data-feather="edit-2"></i>Mis Estudios</a>
+                <a data-toggle="modal" data-target="#misExperencias" class="dropdown-item"><i data-feather="briefcase"></i> Experiencia </a>
+                <a href="" class="dropdown-item"><i data-feather="log-out"></i> Cerrar Sesiont</a>
               </div>
             </div><!-- dropdown-menu -->
           </div>
@@ -111,24 +195,16 @@
       </div><!-- header -->
       <div class="content-header">
         <div>
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Pages</a></li>
-              <li class="breadcrumb-item"><a href="#">User Pages</a></li>
-              <li class="breadcrumb-item active" aria-current="page">People Directory</li>
-            </ol>
-          </nav>
-          <h4 class="content-title content-title-sm">People Directory</h4>
+          <h4 class="content-title content-title-sm">Mi Perfil</h4>
         </div>
       </div><!-- content-header -->
       <div class="content-body">
         <div class="d-flex align-items-center justify-content-between mg-b-15">
-          <h6 class="tx-uppercase tx-bold tx-spacing-1 tx-13 mg-b-0">Most Recent Updates</h6>
+          <h6 class="tx-uppercase tx-bold tx-spacing-1 tx-13 mg-b-0">Ultimos Estudios</h6>
           <div class="btn-group">
-            <button class="btn btn-white btn-xs btn-icon" disabled><i class="icon ion-chevron-left"></i></button>
-            <button class="btn btn-white btn-xs btn-icon"><i class="icon ion-chevron-right"></i></button>
           </div>
         </div>
+        
 
         <div class="people-list people-list-one">
           <div class="people-list-body">
@@ -138,14 +214,15 @@
                   <div class="card-body media">
                     <div class="avatar avatar-md avatar-online"><img src="https://via.placeholder.com/500/637382/fff" class="rounded-circle" alt=""></div>
                     <div class="media-body">
-                      <h6>Carolyn Raya</h6>
-                      <p>Front-End Developer at <a href="">Envato, Inc.</a></p>
+                      <h6>Ing de Sistemas</h6>
+                      <p>Año 2.010 - 2.015</p>
                     </div><!-- media-body -->
                   </div><!-- card-body -->
                   <div class="card-footer">
-                    <a href=""><span class="tx-medium">306</span> mutual friends</a>
+                    <a href=""><span class="tx-medium"></span></a>
                     <nav class="nav nav-icon">
-                      <a href="" class="nav-link text-primary"><i data-feather="message-square"></i><span class="d-none d-sm-inline"> Send Message</span></a>
+                      <a href="" class="nav-link text-primary"><i data-feather="message-square"></i><span class="d-none d-sm-inline"> Editar </span></a>
+                      <a href="" class="nav-link text-primary"><i data-feather="message-square"></i><span class="d-none d-sm-inline"> Eliminar </span></a>
                       <a href="" class="nav-link"><i data-feather="more-vertical"></i></a>
                     </nav>
                   </div><!-- card-footer -->
@@ -156,14 +233,15 @@
                   <div class="card-body media">
                     <div class="avatar avatar-md avatar-online"><img src="https://via.placeholder.com/500/637382/fff" class="rounded-circle" alt=""></div>
                     <div class="media-body">
-                      <h6>Esther Glassman</h6>
-                      <p>Product Designer at <a href="">Themepixels, Inc.</a></p>
+                      <h6>Maestria</h6>
+                      <p>Magister SS <a href=""></a></p>
                     </div><!-- media-body -->
                   </div><!-- card-body -->
                   <div class="card-footer">
-                    <a href=""><span class="tx-medium">21</span> mutual friends</a>
+                    <a href=""><span class="tx-medium"></span></a>
                     <nav class="nav nav-icon">
-                      <a href="" class="nav-link text-primary"><i data-feather="user-plus"></i><span class="d-none d-sm-inline"> Add as Friend</span></a>
+                      <a href="" class="nav-link text-primary"><i data-feather="user-plus"></i><span class="d-none d-sm-inline">Editar</span></a>
+                      <a href="" class="nav-link text-primary"><i data-feather="user-plus"></i><span class="d-none d-sm-inline">Eliminar</span></a>
                       <a href="" class="nav-link"><i data-feather="more-vertical"></i></a>
                     </nav>
                   </div><!-- card-footer -->
@@ -174,14 +252,15 @@
                   <div class="card-body media">
                     <div class="avatar avatar-md avatar-offline"><img src="https://via.placeholder.com/500/637382/fff" class="rounded-circle" alt=""></div>
                     <div class="media-body">
-                      <h6>Alfredo Saleis</h6>
-                      <p>General Manager <a href="">Themepixels, Inc.</a></p>
+                      <h6>PhD</h6>
+                      <p>PhD in Social Media<a href=""></a></p>
                     </div><!-- media-body -->
                   </div><!-- card-body -->
                   <div class="card-footer">
-                    <a href=""><span class="tx-medium">18</span> mutual friends</a>
+                    <a href=""><span class="tx-medium"></span> </a>
                     <nav class="nav nav-icon">
-                      <a href="" class="nav-link text-primary"><i data-feather="user-plus"></i><span class="d-none d-sm-inline"> Add as Friend</span></a>
+                      <a href="" class="nav-link text-primary"><i data-feather="user-plus"></i><span class="d-none d-sm-inline"> Editar</span></a>
+                      <a href="" class="nav-link text-primary"><i data-feather="user-plus"></i><span class="d-none d-sm-inline"> Eli</span></a>
                       <a href="" class="nav-link"><i data-feather="more-vertical"></i></a>
                     </nav>
                   </div><!-- card-footer -->
@@ -330,62 +409,14 @@
 
         <hr class="mg-lg-y-25 op-0">
 
-        <div class="d-flex align-items-center justify-content-between mg-b-15">
-          <h6 class="tx-uppercase tx-bold tx-spacing-1 tx-13 mg-b-0">Members of the Company</h6>
-          <div class="btn-group">
-            <button class="btn btn-white btn-xs btn-icon" disabled><i class="icon ion-chevron-left"></i></button>
-            <button class="btn btn-white btn-xs btn-icon"><i class="icon ion-chevron-right"></i></button>
-          </div>
-        </div>
+      
 
         <div class="people-list people-list-three">
           <div class="people-list-body">
             <div class="row row-xs">
-              <div class="col">
-                <div class="card card-people-three">
-                  <img src="https://via.placeholder.com/300/637382/fff" class="card-img" alt="">
-                  <div class="card-body">
-                    <h6>Marianne Grace</h6>
-                    <p>Sales Representative</p>
-                  </div>
-                </div><!-- card -->
-              </div><!-- col -->
-              <div class="col">
-                <div class="card card-people-three">
-                  <img src="https://via.placeholder.com/300/637382/fff" class="card-img" alt="">
-                  <div class="card-body">
-                    <h6>Socrates Itumay</h6>
-                    <p>Software Engineer</p>
-                  </div>
-                </div><!-- card -->
-              </div><!-- col -->
-              <div class="col">
-                <div class="card card-people-three">
-                  <img src="https://via.placeholder.com/300/637382/fff" class="card-img" alt="">
-                  <div class="card-body">
-                    <h6>Reynante Labares</h6>
-                    <p>Technical Officer</p>
-                  </div>
-                </div><!-- card -->
-              </div><!-- col -->
-              <div class="col">
-                <div class="card card-people-three">
-                  <img src="https://via.placeholder.com/300/637382/fff" class="card-img" alt="">
-                  <div class="card-body">
-                    <h6>Angeline Mercado</h6>
-                    <p>Financial Adviser</p>
-                  </div>
-                </div><!-- card -->
-              </div><!-- col -->
-              <div class="col">
-                <div class="card card-people-three">
-                  <img src="https://via.placeholder.com/300/637382/fff" class="card-img" alt="">
-                  <div class="card-body">
-                    <h6>Louise Kate Lumaad</h6>
-                    <p>CEO &amp; President</p>
-                  </div>
-                </div><!-- card -->
-              </div><!-- col -->
+              
+              
+              
             </div><!-- row -->
           </div><!-- people-list-body -->
         </div><!-- people-list -->

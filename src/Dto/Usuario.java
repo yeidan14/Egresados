@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario")
     , @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre")
     , @NamedQuery(name = "Usuario.findByClave", query = "SELECT u FROM Usuario u WHERE u.clave = :clave")
-    , @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")})
+    , @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
+    , @NamedQuery(name = "Usuario.findBySuperadmin", query = "SELECT u FROM Usuario u WHERE u.superadmin = :superadmin")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +44,9 @@ public class Usuario implements Serializable {
     private String clave;
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
+    @Column(name = "superadmin")
+    private int superadmin;
     @JoinColumn(name = "programa", referencedColumnName = "codigo")
     @ManyToOne
     private Programa programa;
@@ -52,6 +56,11 @@ public class Usuario implements Serializable {
 
     public Usuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public Usuario(String usuario, int superadmin) {
+        this.usuario = usuario;
+        this.superadmin = superadmin;
     }
 
     public String getUsuario() {
@@ -84,6 +93,14 @@ public class Usuario implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getSuperadmin() {
+        return superadmin;
+    }
+
+    public void setSuperadmin(int superadmin) {
+        this.superadmin = superadmin;
     }
 
     public Programa getPrograma() {

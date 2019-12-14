@@ -5,11 +5,23 @@
  */
 package Conexion;
 
+import Dao.UsuarioJpaController;
+import Dto.Usuario;
 
 public class Prueba {
     
     public static void main(String[] args) throws Exception {
-         
+    Conexion con =Conexion.getConexion();
+    	Usuario u= new Usuario();
+    	UsuarioJpaController user=new UsuarioJpaController(con.getBd());
+    	u.setNombre("SuperAdmin");
+    	u.setEmail("yeidan141995");
+    	u.setUsuario("admin1");
+    	u.setClave("12345");
+    	user.create(u);
+    	System.out.println("UsuarioCreado");
+    
+    	
         
     }
     

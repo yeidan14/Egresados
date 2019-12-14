@@ -1,7 +1,5 @@
 jQuery('#menu').load('menu.jsp');
-
-jQuery('#user').load('user.jsp');
-
+jQuery('#supe').load('menu2.jsp');
 $(function () {
     'use strict'
 

@@ -40,6 +40,15 @@
           <h4 class="signin-title">Bienvenido</h4>
           <h5 class="signin-subtitle">Inicia Session para continuar</h5>
 
+                    <%String prueba=(String)request.getAttribute("alerta");                  
+                    String noexsiste="NoExiste";
+                                         if (prueba==noexsiste){%>
+                                           <div class="alert alert-danger" role="alert">
+             El Usuario no existe en Nuestra Base de datos!
+            </div>
+                                            
+                                      <%  }
+                                    %>
           <div class="signin-form">
               <form name="login" action="Validar_admin.do" method="_POST">
             <div class="form-group">

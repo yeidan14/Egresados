@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Conexion;
+package Utilidad;
 
+import Conexion.Conexion;
 import Dao.UsuarioJpaController;
 import Dto.Usuario;
 
-public class Prueba {
+public class RegistroSuperAdmin {
     
     public static void main(String[] args) throws Exception {
     Conexion con =Conexion.getConexion();
@@ -20,8 +21,7 @@ public class Prueba {
     	u.setClave("12345");
     	u.setSuperadmin(1);
     	user.create(u);
-    	System.out.println("UsuarioCreado");
-    
+    	System.out.println("UsuarioCreado");    
     	
         
     }

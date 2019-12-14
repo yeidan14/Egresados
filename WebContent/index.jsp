@@ -41,7 +41,7 @@
           <h5 class="signin-subtitle">Inicia Session para continuar</h5>
 
           <div class="signin-form">
-              <form name="login" action="Login.do" method="_POST">
+              <form name="login" action="Validar_admin.do" method="_POST">
             <div class="form-group">
               <label>Usuario</label>
               <input type="text" name="user" class="form-control" placeholder="Ingrese su usuario" value="Usuario">

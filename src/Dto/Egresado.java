@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Egresado.findByTelefono", query = "SELECT e FROM Egresado e WHERE e.telefono = :telefono")
     , @NamedQuery(name = "Egresado.findByEmail", query = "SELECT e FROM Egresado e WHERE e.email = :email")
     , @NamedQuery(name = "Egresado.findByCodigo", query = "SELECT e FROM Egresado e WHERE e.codigo = :codigo")
-    , @NamedQuery(name = "Egresado.findByClave", query = "SELECT e FROM Egresado e WHERE e.clave = :clave")})
+    , @NamedQuery(name = "Egresado.findByClave", query = "SELECT e FROM Egresado e WHERE e.clave = :clave")
+    , @NamedQuery(name = "Egresado.findByActivo", query = "SELECT e FROM Egresado e WHERE e.activo = :activo")})
 public class Egresado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,6 +63,9 @@ public class Egresado implements Serializable {
     private String perfil;
     @Column(name = "clave")
     private String clave;
+    @Basic(optional = false)
+    @Column(name = "activo")
+    private int activo;
     @OneToMany(mappedBy = "egresado")
     private List<Estudio> estudioList;
     @OneToMany(mappedBy = "egresado")
@@ -75,6 +79,11 @@ public class Egresado implements Serializable {
 
     public Egresado(Integer id) {
         this.id = id;
+    }
+
+    public Egresado(Integer id, int activo) {
+        this.id = id;
+        this.activo = activo;
     }
 
     public Integer getId() {
@@ -139,6 +148,14 @@ public class Egresado implements Serializable {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    public int getActivo() {
+        return activo;
+    }
+
+    public void setActivo(int activo) {
+        this.activo = activo;
     }
 
     @XmlTransient

@@ -36,29 +36,29 @@
        <img src="Librerias/assets/img/fondo.jpg" width="100%">
       <div class="signin-sidebar">
         <div class="signin-sidebar-body">
-            <a href="index.jsp" class="sidebar-logo mg-b-40"><span>EXAMEN FINAL</span></a>
+            <a href="index.jsp" class="sidebar-logo mg-b-40"><span>Egresados</span></a>
           <h4 class="signin-title">Bienvenido</h4>
           <h5 class="signin-subtitle">Inicia Session para continuar</h5>
 
           <div class="signin-form">
-              <form name="login" action="Login.do" method="_POST">
-            <div class="form-group">
-              <label>Usuario</label>
-              <input type="text" name="user" class="form-control" placeholder="Ingrese su usuario" value="Usuario">
-            </div>
-
-            <div class="form-group">
-              <label class="d-flex justify-content-between">
-                <span>Pass</span>
-                <a href="" class="tx-13">Olvido su contraseña?</a>
-              </label>
-              <input name="pass" type="password" class="form-control" placeholder="Enter your password" value="yourpassword">
-            </div>
-
-            <div class="form-group d-flex mg-b-0">
-              <button class="btn btn-brand-01 btn-uppercase flex-fill">Ingresar</button>
-              <a href="Registro.jsp" class="btn btn-white btn-uppercase flex-fill mg-l-10">Registrar</a>
-            </div>
+              <form name="login" action="loginUser" method="POST">
+	            <div class="form-group">
+	              <label>Usuario</label>
+	              <input type="text" name="userLogin" class="form-control" placeholder="Ingrese su usuario" required value="">
+	            </div>
+	
+	            <div class="form-group">
+	              <label class="d-flex justify-content-between">
+	                <span>Pass</span>
+	                <a href="" class="tx-13">Olvido su contraseña?</a>
+	              </label>
+	              <input name="passLogin" type="password" class="form-control" placeholder="Enter your password" required value="">
+	            </div>
+	
+	            <div class="form-group d-flex mg-b-0">
+	              <button type="submit" class="btn btn-brand-01 btn-uppercase flex-fill">Ingresar</button>
+	              <a href="Registro.jsp" class="btn btn-white btn-uppercase flex-fill mg-l-10">Registrar</a>
+	            </div>
               </form>
             <div class="divider-text mg-y-30"></div>
 <img src="Librerias/assets/img/logosistemas.png" width="100%">
